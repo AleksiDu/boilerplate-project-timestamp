@@ -1,5 +1,5 @@
 {
-	"name": "fcc-api-projects-boilerplate",
+	"name": "aleksi-duluzaurio-app",
 	"version": "0.0.1",
 	"description": "An FCC Backend Challenge",
 	"main": "server.js",
@@ -14,7 +14,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://githost.com/camper/repo.git"
+		"url": "https://github.com/AleksiDu/boilerplate-project-timestamp.git"
 	},
 	"keywords": [
 		"node",
