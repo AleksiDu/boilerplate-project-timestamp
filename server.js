@@ -9,6 +9,7 @@ var port = process.env.PORT || 3000;
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
 var cors = require('cors');
+const res = require('express/lib/response');
 app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
 
 // http://expressjs.com/en/starter/static-files.html
@@ -26,13 +27,37 @@ app.get("/api/hello", function (req, res) {
 });
 
 //#1 Timestamp Microservice
+app.get("/api", (req, res) => {
+  var nowTime = new Date();
+  res.json({ 
+    "unix": nowTime.getTime(),
+    "utc": nowTime.toUTCString()
+});
+});
 
 app.get("/api/:date_string", (req, res) => { 
   let dateString = req.params.date_string;
-  console.log(dateString);
 
-  res.json({ "error" : "Invalid Date"  });
-})
+  if (parseInt(dateString) > 10000) {
+    let unixTime = new Date(parseInt(dateString));
+    res.json({ 
+      "unix": unixTime.getTime(),
+      "utc": unixTime.toUTCString()
+    });
+  };
+
+
+  let passed = new Date(dateString);
+
+  if (passed == "Invalid Date"){
+    res.json({ error : "Invalid Date"  });
+  } else {
+    res.json({ 
+      unix: passed.getTime(),
+      utc: passed.toUTCString()
+    });
+  };
+});
 
 // listen for requests :)
 var listener = app.listen(port, function () {
